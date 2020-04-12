@@ -38,7 +38,8 @@ def severe_cases_by_time(infections):
 def hospital_beds_by_time(beds_count, infections):
     available_beds = int(beds_count * 35/100)
     actual_captity = int(beds_count * 90/100)
-    return available_beds - actual_captity - infections
+    # return available_beds - actual_captity - infections
+    return 0
 
 
 def icu_request_by_time(infections):
