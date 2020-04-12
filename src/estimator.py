@@ -34,7 +34,7 @@ def severe_cases_by_time(infections):
     return int(infections*15/100)
 
 def hospital_beds_by_time(beds_count, infections):
-    actual_available_beds = int(beds_count * 95/100)
+    actual_available_beds = (beds_count * 95/100)
     covid_beds = int(actual_available_beds * 35/100)
     return covid_beds - infections
 
