@@ -1,4 +1,6 @@
 import random
+
+
 def currently_infected(reported_count, type='severe'):
     # calculate currently infected
     if type == 'severe':
@@ -25,7 +27,7 @@ def infections_by_time(infected_count, time_to_elapse, period_type='days'):
 
 
 def severe_cases_by_time(infections):
-    """ 
+    """
     This is the estimated number of severe positive
     cases that will require hospitalization to recover.
     """
@@ -39,6 +41,24 @@ def hospital_beds_by_time(beds_count, patients):
     actual_captity = int(beds_count * random_capacity/100)
 
     return patients - (actual_captity - available_beds)
+
+
+def icu_request_by_time(infections):
+    return int(infections * 5/100)
+
+
+def ventilators_request_by_time(infections):
+    return int(infections * 2/100)
+
+def dollars_in_flight(infections, avg_daily_income, time_to_elapse, period_type='days'):
+
+    if period_type == 'weeks':
+        time_to_elapse = time_to_elapse * 7
+    if period_type == 'months':
+        time_to_elapse = time_to_elapse * 30
+
+    return (infections * 0.65) * avg_daily_income * time_to_elapse
+
 
 def estimator(data):
     impact = dict()
@@ -74,6 +94,24 @@ def estimator(data):
     impact['hospitalBedsByRequestedTime'] = impact_beds
     severeImpact['hospitalBedsByRequestedTime'] = severe_beds
 
+    # casesForICUByRequestedTime
+    impact['casesForICUByRequestedTime'] = icu_request_by_time(
+        positive_impact_cases)
+    severeImpact['casesForICUByRequestedTime'] = icu_request_by_time(
+        positive_severe_cases)
+
+    # casesForVentilatorsByRequestedTime
+    impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
+        positive_impact_cases)
+    severeImpact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
+        positive_severe_cases)
+
+    # compute dollarsInFlight
+    avg_income = data['region']['avgDailyIncomeInUSD']
+    impact['dollarsInFlight'] = dollars_in_flight(
+        impact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
+    severeImpact['dollarsInFlight'] = dollars_in_flight(
+        severeImpact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
+
     output = dict(data=data, impact=impact, severeImpact=severeImpact)
     return output
-
