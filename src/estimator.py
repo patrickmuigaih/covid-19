@@ -38,7 +38,7 @@ def hospital_beds_by_time(beds_count, infections):
     beds = available_beds - infections
     if beds>0:
       return math.floor(beds)
-    return beds
+    return math.ceil(beds)
     
 
 def icu_request_by_time(infections):
