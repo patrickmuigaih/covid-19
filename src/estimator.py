@@ -1,6 +1,7 @@
 import random
 import math
 
+
 def currently_infected(reported_count, type='severe'):
     # calculate currently infected
     if type == 'severe':
@@ -33,27 +34,29 @@ def severe_cases_by_time(infections):
     """
     return (infections*15/100.0)
 
+
 def hospital_beds_by_time(beds_count, infections):
     available_beds = (beds_count * 35/100.0)
     beds = available_beds - infections
-    if beds>0:
-      return math.floor(beds)
+    if beds > 0:
+        return math.floor(beds)
     return math.ceil(beds)
-    
+
 
 def icu_request_by_time(infections):
     return int(infections * 5/100)
 
+
 def ventilators_request_by_time(infections):
     return int(infections * 2/100)
 
-def dollars_in_flight(infections, avg_daily_income, time_to_elapse, period_type='days'):
+
+def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_to_elapse, period_type='days'):
     if period_type == 'weeks':
         time_to_elapse = time_to_elapse * 7
     if period_type == 'months':
         time_to_elapse = time_to_elapse * 30
-    return (infections * 0.65) * avg_daily_income * time_to_elapse
-
+    return (infections * avg_income_population) * avg_daily_income * time_to_elapse
 
 
 def estimator(data):
@@ -100,10 +103,11 @@ def estimator(data):
 
     # compute dollarsInFlight
     avg_income = data['region']['avgDailyIncomeInUSD']
+    avg_income_population = data['region']['avgDailyIncomePopulation']
     impact['dollarsInFlight'] = dollars_in_flight(
-        impact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
+        impact['infectionsByRequestedTime'], avg_income_population, avg_income, data['timeToElapse'], data['periodType'])
     severeImpact['dollarsInFlight'] = dollars_in_flight(
-        severeImpact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
+        severeImpact['infectionsByRequestedTime'], avg_income_population, avg_income, data['timeToElapse'], data['periodType'])
 
     output = dict(data=data, impact=impact, severeImpact=severeImpact)
     return output
