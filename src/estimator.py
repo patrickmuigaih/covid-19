@@ -91,9 +91,9 @@ def estimator(data):
 
     # casesForICUByRequestedTime
     impact['casesForICUByRequestedTime'] = icu_request_by_time(
-        impact['severeCasesByRequestedTime'])
+        impact['infectionsByRequestedTime'])
     severeImpact['casesForICUByRequestedTime'] = icu_request_by_time(
-        severeImpact['severeCasesByRequestedTime'])
+        severeImpact['infectionsByRequestedTime'])
 
     # casesForVentilatorsByRequestedTime
     impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
