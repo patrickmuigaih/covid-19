@@ -36,8 +36,8 @@ def severe_cases_by_time(infections):
 
 
 def hospital_beds_by_time(beds_count, infections):
-    available_beds = int(beds_count * 35/100)
-    actual_captity = int(beds_count * 90/100)
+    # available_beds = int(beds_count * 35/100)
+    # actual_captity = int(beds_count * 90/100)
     # return available_beds - actual_captity - infections
     return 0
 
@@ -98,9 +98,9 @@ def estimator(data):
 
     # casesForVentilatorsByRequestedTime
     impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
-        positive_impact_cases)
+        severeImpact['severeCasesByRequestedTime'])
     severeImpact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
-        positive_severe_cases)
+        severeImpact['severeCasesByRequestedTime'])
 
     # compute dollarsInFlight
     avg_income = data['region']['avgDailyIncomeInUSD']
