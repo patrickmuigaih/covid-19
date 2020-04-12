@@ -34,9 +34,8 @@ def severe_cases_by_time(infections):
     return int(infections*15/100)
 
 def hospital_beds_by_time(beds_count, infections):
-    # available_beds = int(beds_count * 35/100)
-    # return available_beds - infections
-    return 0
+    available_beds = int(beds_count * 35/100)
+    return available_beds - infections
 
 def icu_request_by_time(infections):
     return int(infections * 5/100)
@@ -85,23 +84,23 @@ def estimator(data):
         data['totalHospitalBeds'], severeImpact['severeCasesByRequestedTime'])
 
     # casesForICUByRequestedTime
-    impact['casesForICUByRequestedTime'] = icu_request_by_time(
-        impact['severeCasesByRequestedTime'])
-    severeImpact['casesForICUByRequestedTime'] = icu_request_by_time(
-        severeImpact['severeCasesByRequestedTime'])
+    # impact['casesForICUByRequestedTime'] = icu_request_by_time(
+    #     impact['severeCasesByRequestedTime'])
+    # severeImpact['casesForICUByRequestedTime'] = icu_request_by_time(
+    #     severeImpact['severeCasesByRequestedTime'])
 
-    # casesForVentilatorsByRequestedTime
-    impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
-        severeImpact['severeCasesByRequestedTime'])
-    severeImpact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
-        severeImpact['severeCasesByRequestedTime'])
+    # # casesForVentilatorsByRequestedTime
+    # impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
+    #     severeImpact['severeCasesByRequestedTime'])
+    # severeImpact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
+    #     severeImpact['severeCasesByRequestedTime'])
 
-    # compute dollarsInFlight
-    avg_income = data['region']['avgDailyIncomeInUSD']
-    impact['dollarsInFlight'] = dollars_in_flight(
-        impact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
-    severeImpact['dollarsInFlight'] = dollars_in_flight(
-        severeImpact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
+    # # compute dollarsInFlight
+    # avg_income = data['region']['avgDailyIncomeInUSD']
+    # impact['dollarsInFlight'] = dollars_in_flight(
+    #     impact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
+    # severeImpact['dollarsInFlight'] = dollars_in_flight(
+    #     severeImpact['infectionsByRequestedTime'], avg_income, data['timeToElapse'], data['periodType'])
 
     output = dict(data=data, impact=impact, severeImpact=severeImpact)
     return output
