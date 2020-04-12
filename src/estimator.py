@@ -1,3 +1,4 @@
+import random
 def currently_infected(reported_count, type='severe'):
     # calculate currently infected
     if type == 'severe':
@@ -33,7 +34,9 @@ def severe_cases_by_time(infections):
 
 
 def hospital_beds_by_time(beds_count, patients):
+    random_capacity = random.choice([90, 95])
     available_beds = int(beds_count * 35/100)
+    
     return patients - available_beds
 
 
@@ -64,12 +67,12 @@ def estimator(data):
     severeImpact['severeCasesByRequestedTime'] = positive_severe_cases
 
     # compute hospitalBedsByRequestedTime
-    # impact_beds = hospital_beds_by_time(
-    #     data['totalHospitalBeds'], positive_impact_cases)
-    # severe_beds = hospital_beds_by_time(
-    #     data['totalHospitalBeds'], positive_severe_cases)
-    # impact['hospitalBedsByRequestedTime'] = impact_beds
-    # severeImpact['hospitalBedsByRequestedTime'] = severe_beds
+    impact_beds = hospital_beds_by_time(
+        data['totalHospitalBeds'], positive_impact_cases)
+    severe_beds = hospital_beds_by_time(
+        data['totalHospitalBeds'], positive_severe_cases)
+    impact['hospitalBedsByRequestedTime'] = impact_beds
+    severeImpact['hospitalBedsByRequestedTime'] = severe_beds
 
     output = dict(data=data, impact=impact, severeImpact=severeImpact)
     return output
