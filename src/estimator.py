@@ -49,6 +49,7 @@ def icu_request_by_time(infections):
 def ventilators_request_by_time(infections):
     return int(infections * 2/100)
 
+
 def dollars_in_flight(infections, avg_daily_income, time_to_elapse, period_type='days'):
 
     if period_type == 'weeks':
@@ -66,38 +67,34 @@ def estimator(data):
     reportedCases = data['reportedCases']
 
     # get currentily infected
-    infected_count = currently_infected(reportedCases, type='impact')
-    severe_infected_count = currently_infected(reportedCases, type='severe')
-    impact['currentlyInfected'] = infected_count
-    severeImpact['currentlyInfected'] = severe_infected_count
+    impact['currentlyInfected'] = currently_infected(
+        reportedCases, type='impact')
+    severeImpact['currentlyInfected'] = currently_infected(
+        reportedCases, type='severe')
 
     # compute infectionsByRequestedTime
-    infections_count = infections_by_time(
-        infected_count, data['timeToElapse'], data['periodType'])
-    severe_infections_count = infections_by_time(
-        severe_infected_count, data['timeToElapse'], data['periodType'])
-    impact['infectionsByRequestedTime'] = infections_count
-    severeImpact['infectionsByRequestedTime'] = severe_infections_count
+    impact['infectionsByRequestedTime'] = infections_by_time(
+        impact['currentlyInfected'], data['timeToElapse'], data['periodType'])
+    severeImpact['infectionsByRequestedTime'] = infections_by_time(
+        severeImpact['currentlyInfected'], data['timeToElapse'], data['periodType'])
 
     # compute severeCasesByRequestedTime
-    positive_impact_cases = severe_cases_by_time(infected_count)
-    positive_severe_cases = severe_cases_by_time(severe_infections_count)
-    impact['severeCasesByRequestedTime'] = positive_impact_cases
-    severeImpact['severeCasesByRequestedTime'] = positive_severe_cases
+    impact['severeCasesByRequestedTime'] = severe_cases_by_time(
+        impact['infectionsByRequestedTime'])
+    severeImpact['severeCasesByRequestedTime'] = severe_cases_by_time(
+        severeImpact['infectionsByRequestedTime'])
 
     # compute hospitalBedsByRequestedTime
-    impact_beds = hospital_beds_by_time(
-        data['totalHospitalBeds'], positive_impact_cases)
-    severe_beds = hospital_beds_by_time(
-        data['totalHospitalBeds'], positive_severe_cases)
-    impact['hospitalBedsByRequestedTime'] = impact_beds
-    severeImpact['hospitalBedsByRequestedTime'] = severe_beds
+    impact['hospitalBedsByRequestedTime'] = hospital_beds_by_time(
+        data['totalHospitalBeds'], impact['severeCasesByRequestedTime'])
+    severeImpact['hospitalBedsByRequestedTime'] = hospital_beds_by_time(
+        data['totalHospitalBeds'], severeImpact['severeCasesByRequestedTime'])
 
     # casesForICUByRequestedTime
     impact['casesForICUByRequestedTime'] = icu_request_by_time(
-        positive_impact_cases)
+        impact['severeCasesByRequestedTime'])
     severeImpact['casesForICUByRequestedTime'] = icu_request_by_time(
-        positive_severe_cases)
+        severeImpact['severeCasesByRequestedTime'])
 
     # casesForVentilatorsByRequestedTime
     impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
