@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "jest": "^25.2.7",
     "jest-pytest": "^0.7.0"
   },
   "jest": {
@@ -15,9 +16,7 @@
       "py"
     ],
     "runner": "<rootDir>/pytest-runner",
-    "testPathIgnorePatterns": [
-      "<rootDir>/audits/test_utils.py"
-    ],
+    "testPathIgnorePatterns": ["<rootDir>/audits/test_utils.py"],
     "testMatch": [
       "<rootDir>/audits/**/test_*.py"
     ]
