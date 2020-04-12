@@ -42,8 +42,7 @@ def hospital_beds_by_time(beds_count, infections):
     
 
 def icu_request_by_time(infections):
-    return 0
-    # return infections * 5/100
+    return infections * 5/100
 
 def ventilators_request_by_time(infections):
     return 0
