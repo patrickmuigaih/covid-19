@@ -23,6 +23,20 @@ def infections_by_time(infected_count, time_to_elapse, period_type='days'):
     return infected_count * (2**(time_to_elapse//3))
 
 
+def severe_cases_by_time(infections):
+    """ 
+    This is the estimated number of severe positive
+    cases that will require hospitalization to recover.
+    """
+
+    return int(infections*15/100)
+
+
+def hospital_beds_by_time(beds_count, patients):
+    available_beds = int(beds_count * 35/100)
+    return patients - available_beds
+
+
 def estimator(data):
     impact = dict()
     severeImpact = dict()
@@ -36,9 +50,25 @@ def estimator(data):
     severeImpact['currentlyInfected'] = severe_infected_count
 
     # compute infectionsByRequestedTime
-    impact['infectionsByRequestedTime'] = infections_by_time(
+    infections_count = infections_by_time(
         infected_count, data['timeToElapse'], data['periodType'])
-    severeImpact['infectionsByRequestedTime'] = infections_by_time(
+    severe_infections_count = infections_by_time(
         severe_infected_count, data['timeToElapse'], data['periodType'])
+    impact['infectionsByRequestedTime'] = infections_count
+    severeImpact['infectionsByRequestedTime'] = severe_infections_count
+
+    # compute severeCasesByRequestedTime
+    positive_impact_cases = severe_cases_by_time(infected_count)
+    positive_severe_cases = severe_cases_by_time(severe_infections_count)
+    impact['severeCasesByRequestedTime'] = positive_impact_cases
+    severeImpact['severeCasesByRequestedTime'] = positive_severe_cases
+
+    # compute hospitalBedsByRequestedTime
+    impact_beds = hospital_beds_by_time(
+        data['totalHospitalBeds'], positive_impact_cases)
+    severe_beds = hospital_beds_by_time(
+        data['totalHospitalBeds'], positive_severe_cases)
+    impact['hospitalBedsByRequestedTime'] = impact_beds
+    severeImpact['hospitalBedsByRequestedTime'] = severe_beds
 
     return dict(data=data, impact=impact, severeImpact=severeImpact)
