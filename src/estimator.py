@@ -96,9 +96,9 @@ def estimator(data):
 
     # casesForVentilatorsByRequestedTime
     impact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
-        severeImpact['severeCasesByRequestedTime'])
+        severeImpact['infectionsByRequestedTime'])
     severeImpact['casesForVentilatorsByRequestedTime'] = ventilators_request_by_time(
-        severeImpact['severeCasesByRequestedTime'])
+        severeImpact['infectionsByRequestedTime'])
 
     # compute dollarsInFlight
     avg_income = data['region']['avgDailyIncomeInUSD']
