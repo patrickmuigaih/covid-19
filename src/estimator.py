@@ -56,7 +56,7 @@ def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_
         time_to_elapse = time_to_elapse * 7
     if period_type == 'months':
         time_to_elapse = time_to_elapse * 30
-    return (infections * avg_income_population) * avg_daily_income
+    return (infections * avg_income_population/100) * avg_daily_income
 
 
 def estimator(data):
