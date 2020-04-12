@@ -71,4 +71,6 @@ def estimator(data):
     impact['hospitalBedsByRequestedTime'] = impact_beds
     severeImpact['hospitalBedsByRequestedTime'] = severe_beds
 
-    return dict(data=data, impact=impact, severeImpact=severeImpact)
+    output = dict(data=data, impact=impact, severeImpact=severeImpact)
+    print(output)
+    return output
