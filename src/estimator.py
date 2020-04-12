@@ -56,7 +56,7 @@ def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_
         time_to_elapse = time_to_elapse * 7
     if period_type == 'months':
         time_to_elapse = time_to_elapse * 30
-        
+
     return (infections * avg_income_population) * avg_daily_income * time_to_elapse
 
 
@@ -110,21 +110,5 @@ def estimator(data):
     severeImpact['dollarsInFlight'] = dollars_in_flight(
         severeImpact['infectionsByRequestedTime'], avg_income_population, avg_income, data['timeToElapse'], data['periodType'])
 
-
-'''
-{
-region: {
-name: "Africa",
-avgAge: 19.7,
-avgDailyIncomeInUSD: 5,
-avgDailyIncomePopulation: 0.71
-},
-periodType: "days",
-timeToElapse: 58,
-reportedCases: 674,
-population: 66622705,
-totalHospitalBeds: 1380614
-}
-'''
-output = dict(data=data, impact=impact, severeImpact=severeImpact)
-return output
+    output = dict(data=data, impact=impact, severeImpact=severeImpact)
+    return output
