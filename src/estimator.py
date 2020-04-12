@@ -1,5 +1,5 @@
 import random
-
+import math
 
 def currently_infected(reported_count, type='severe'):
     # calculate currently infected
@@ -35,7 +35,7 @@ def severe_cases_by_time(infections):
 
 def hospital_beds_by_time(beds_count, infections):
     available_beds = (beds_count * 35/100.0)
-    return available_beds - infections
+    return math.floor(available_beds - infections)
 
 def icu_request_by_time(infections):
     return int(infections * 5/100.0)
