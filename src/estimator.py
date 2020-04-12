@@ -36,9 +36,9 @@ def severe_cases_by_time(infections):
 def hospital_beds_by_time(beds_count, patients):
     random_capacity = random.choice([90, 95])
     available_beds = int(beds_count * 35/100)
-    
-    return patients - available_beds
+    actual_captity = int(beds_count * random_capacity/100)
 
+    return patients - (actual_captity - available_beds)
 
 def estimator(data):
     impact = dict()
