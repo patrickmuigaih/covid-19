@@ -42,10 +42,10 @@ def hospital_beds_by_time(beds_count, infections):
     
 
 def icu_request_by_time(infections):
-    return infections * 5/100
+    return int(infections * 5/100)
 
 def ventilators_request_by_time(infections):
-    return infections * 2/100
+    return int(infections * 2/100)
 
 def dollars_in_flight(infections, avg_daily_income, time_to_elapse, period_type='days'):
 
