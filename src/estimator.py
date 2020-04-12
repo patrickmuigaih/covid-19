@@ -31,8 +31,7 @@ def severe_cases_by_time(infections):
     This is the estimated number of severe positive
     cases that will require hospitalization to recover.
     """
-    return infections*15/100
-
+    return int(infections*15/100)
 
 def hospital_beds_by_time(beds_count, infections):
     available_beds = int(beds_count * 35/100)
