@@ -35,12 +35,11 @@ def severe_cases_by_time(infections):
     return int(infections*15/100)
 
 
-def hospital_beds_by_time(beds_count, patients):
-    random_capacity = random.choice([90, 95])
-    available_beds = int(beds_count * 35/100)
-    actual_captity = int(beds_count * random_capacity/100)
+def hospital_beds_by_time(beds_count, infections):
+    available_beds = int(beds_count * 90/100)
+    covid_beds = int(available_beds * 35/100)
 
-    return patients - (actual_captity - available_beds)
+    return covid_beds - infections
 
 
 def icu_request_by_time(infections):
