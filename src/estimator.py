@@ -35,7 +35,11 @@ def severe_cases_by_time(infections):
 
 def hospital_beds_by_time(beds_count, infections):
     available_beds = (beds_count * 35/100.0)
-    return math.floor(available_beds - infections)
+    beds = available_beds - infections
+    if beds>0:
+      return math.floor(beds)
+    return beds
+    
 
 def icu_request_by_time(infections):
     return int(infections * 5/100.0)
