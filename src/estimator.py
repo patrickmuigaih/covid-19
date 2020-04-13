@@ -32,11 +32,11 @@ def severe_cases_by_time(infections):
     This is the estimated number of severe positive
     cases that will require hospitalization to recover.
     """
-    return (infections*15/100.0)
+    return (infections* (15/100.0))
 
 
 def hospital_beds_by_time(beds_count, infections):
-    available_beds = (beds_count * 35/100.0)
+    available_beds = (beds_count * (35/100.0))
     beds = available_beds - infections
     if beds > 0:
         return math.floor(beds)
@@ -44,11 +44,11 @@ def hospital_beds_by_time(beds_count, infections):
 
 
 def icu_request_by_time(infections):
-    return int(infections * 5/100)
+    return int(infections * (5/100))
 
 
 def ventilators_request_by_time(infections):
-    return int(infections * 2/100)
+    return int(infections * (2/100))
 
 
 def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_to_elapse, period_type='days'):
@@ -57,7 +57,7 @@ def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_
     if period_type == 'months':
         time_to_elapse = time_to_elapse * 30
 
-    return (infections * (avg_income_population/100)) * avg_daily_income * time_to_elapse
+    return (infections * (avg_income_population/100)) * avg_daily_income 
 
 
 def estimator(data):
