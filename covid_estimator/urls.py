@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from covid.views import estimator_view
+from covid import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/on-covid-19', estimator_view, kwargs={'format':'json'}),
-    re_path(r'^api/v1/on-covid-19/(?P<format>json|xml)$', estimator_view),   
+    path('api/v1/on-covid-19', views.estimator_view, kwargs={'format':'json'}),
+    re_path(r'^api/v1/on-covid-19/(?P<format>json|xml)$', views.estimator_view),   
+    path('api/v1/on-covid-19/logs', views.logs_view, ),
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from .models import RequestLog
 
 class RegionSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
