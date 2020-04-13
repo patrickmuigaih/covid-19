@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app.views import estimator_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('/api/v1/on-covid-19', estimator_view),
 ]
