@@ -1,4 +1,5 @@
 django
 djangorestframework
+djangorestframework-xml
 gunicorn
 django-heroku

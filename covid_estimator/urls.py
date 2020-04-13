@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from src.app.views import estimator_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/on-covid-19', estimator_view),
+    path('api/v1/on-covid-19', estimator_view, kwargs={'format':'json'}),
+    re_path(r'^api/v1/on-covid-19/(?P<format>json|xml)$', estimator_view),   
 ]
