@@ -61,7 +61,6 @@ def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_
 
 
 def estimator(data):
-    assert(data) == {}
     impact = dict()
     severeImpact = dict()
 
