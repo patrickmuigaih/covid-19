@@ -52,12 +52,12 @@ def ventilators_request_by_time(infections):
 
 
 def dollars_in_flight(infections, avg_income_population, avg_daily_income, time_to_elapse, period_type='days'):
-    if period_type == 'weeks':
-        time_to_elapse = time_to_elapse * 7
-    if period_type == 'months':
-        time_to_elapse = time_to_elapse * 30
+    # if period_type == 'weeks':
+    #     time_to_elapse = time_to_elapse * 7
+    # if period_type == 'months':
+    #     time_to_elapse = time_to_elapse * 30
 
-    return (infections * avg_income_population/100) * avg_daily_income 
+    return (infections * avg_income_population/100) * avg_daily_income * time_to_elapse
 
 
 def estimator(data):
