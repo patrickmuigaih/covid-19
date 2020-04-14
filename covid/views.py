@@ -20,7 +20,7 @@ def estimator_view(request, format=None):
 @api_view(['GET'])
 def logs_view(request, ):
     log_string = ''
-    all_logs = RequestLog.objects.all()
+    all_logs = RequestLog.objects.order_by('created_on')[:3]
     for log in all_logs:
         time_stamp=  round(log.created_on.timestamp())
         log_string += f"{time_stamp}\t\t{log.path}\t\tdone in {log.request_time} seconds\n"
