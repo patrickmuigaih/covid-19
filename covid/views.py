@@ -22,7 +22,7 @@ def logs_view(request, ):
     log_string = ''
     all_logs = RequestLog.objects.order_by('-created_on')
     for log in all_logs:
-        time_stamp=  round(log.created_on.timestamp())
-        log_string += f"{log.method}\t\t{log.path}\t\t{log.status_code}\t\t{log.request_time}ms\n"
+        request_time=  "{:02d}".format(log.request_time)
+        log_string += f"{log.method}\t\t{log.path}\t\t{log.status_code}\t\t{request_time}ms\n"
     
     return HttpResponse(log_string, content_type='text/plain')
