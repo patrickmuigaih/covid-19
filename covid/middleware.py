@@ -25,6 +25,8 @@ class RequestTimeMiddleware:
             end_time=end_time,
             path=request.path,
             request_time=request_time,
+            status_code=response.status_code,
+            method = request.method,
             log=log_string
         )
         return response
