@@ -17,9 +17,7 @@ class RequestTimeMiddleware:
         response = self.get_response(request)
         end_time = timezone.now()
         time_stamp = round(timezone.now().timestamp())
-        request_time = (end_time - start_time).total_seconds()
-        log_string = f"{time_stamp}\t\t{request.path}\t\tdone in {request_time} seconds"
-
+        request_time = (end_time - start_time).total_seconds() * 1000
         RequestLog.objects.create(
             start_time=start_time,
             end_time=end_time,
@@ -27,6 +25,5 @@ class RequestTimeMiddleware:
             request_time=request_time,
             status_code=response.status_code,
             method = request.method,
-            log=log_string
         )
         return response

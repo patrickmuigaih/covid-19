@@ -23,6 +23,6 @@ def logs_view(request, ):
     all_logs = RequestLog.objects.order_by('-created_on')
     for log in all_logs:
         time_stamp=  round(log.created_on.timestamp())
-        log_string += f"{time_stamp}\t\t{log.path}\t\tdone in {log.request_time} seconds\n"
+        log_string += f"{log.method}\t\t{log.path}\t\t{log.status_code}\t\t{log.request_time}ms\n"
     
     return HttpResponse(log_string, content_type='text/plain')
